@@ -11,10 +11,10 @@ struct passenger {
     struct passenger* next; // Pointer to the next passenger
 };
 
-struct passenger* head = NULL; // Creating a head pointer
 
 
 int main() {
+    struct passenger* head = NULL; // Creating a head pointer
 
     return 0;
 }
