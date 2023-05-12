@@ -89,7 +89,6 @@ void mainMenu(){
             printf("Enter the name of the passenger: "); // Getting the passenger's name
             scanf("%s", name); // Storing the passenger's name 
             deletePassenger(&head, name); // Calling the deletePassenger function
-            printf("Passenger named %s has been deleted successfully.\n", name); // Printing the success message with the passenger's name
             printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
             scanf("%d", &user_end_choice); // Getting the user's choice
             // If else statments for user's choice
@@ -240,6 +239,7 @@ void deletePassenger (struct passenger** head, char name[]) {
         // The strcmp() compares two strings character by character. If the strings are equal, the function returns 0
         if(strcmp(current->name, name) == 0) {
             // If current->name is equal to name, then the current node will be deleted
+            printf("Passenger named %s has been deleted successfully.\n", name); // Printing the success message with the passenger's name
             if(prev == NULL) {
                 *head = current->next; // The next node of the current node will be the head node
             }
@@ -253,6 +253,8 @@ void deletePassenger (struct passenger** head, char name[]) {
         prev = current; // The previous node will be the current node
         current = current->next; // The current node will be the next node
     }
+    // If the name entered by the user does not match any of the names in the list, then the function will print an error message
+    printf("There is no passenger named %s\n", name); // Printing the error message
 }
  // Function for displaying the passengers
  // This function takes the head node as a parameter
