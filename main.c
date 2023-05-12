@@ -15,6 +15,7 @@ struct passenger {
 
 // Function prototypes
 void mainMenu(); // Function for displaying the menu
+int checkDuplicate (struct passenger** head, char name[]); // Function for checking if there is a passenger with the same name
 void addPassenger (struct passenger** head, char name[], char departure[], char arrival[], char date[], int seat_number); // Function for adding a passenger
 void deletePassenger (struct passenger** head, char name[]); // Function for deleting a passenger
 void searchPassenger (struct passenger** head, char name[]); // Function for searching a passenger
@@ -61,7 +62,6 @@ void mainMenu(){
             printf("Enter the seat number of the passenger: "); // Getting the passenger's seat number
             scanf("%d", &seat_number); // Storing the passenger's seat number
             addPassenger(&head, name, departure, arrival, date, seat_number); // Calling the addPassenger function
-            printf("Passenger named %s has been added successfully.\n", name); // Printing the success message with the passenger's name
             printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
             scanf("%d", &user_end_choice); // Getting the user's choice
             // If else statments for user's choice
@@ -175,16 +175,37 @@ void mainMenu(){
 
 }
 
-// ! Duplicate functionu eklenecek
+int checkDuplicate (struct passenger** head, char name[]) {
+    struct passenger* temp = *head; // Creating a temporary passenger
+    // While loop for checking if there is a passenger with the same name
+    // If there is a passenger with the same name, then the function will return 1
+    while(temp != NULL) {
+        // If there is a passenger with the same name, then the function will return 1
+        if (strcmp(temp->name, name) == 0) {
+            return 1;
+        }
+        temp = temp->next; // Going to the next passenger
+    }
+    return 0; // If there is no passenger with the same name, then the function will return 0
+}
+
 // This function is adding a new passenger to the linked list
 // This function is taking the head of the linked list, name, departure, arrival, date and seat number as parameters
 void addPassenger (struct passenger** head, char name[], char departure[], char arrival[], char date[], int seat_number) {
+    // If statement is checking if there is a passenger with the same name
+    // If there is a passenger with the same name, then the function will return
+    if(checkDuplicate(head, name) == 1) {
+        printf("There is already a passenger with the same name!\n"); // Printing the error message
+        return; // Breaking the function
+    }
+
     struct passenger* new_passenger = (struct passenger*) malloc(sizeof(struct passenger)); // New passenger will be created
     strcpy(new_passenger->name, name); // Copy the name entered by the user to the new passenger's name
     strcpy(new_passenger->departure, departure); // Copy the departure entered by the user to the new passenger's departure
     strcpy(new_passenger->arrival, arrival); // Copy the arrival entered by the user to the new passenger's arrival
     strcpy(new_passenger->date, date); // Copy the date entered by the user to the new passenger's date
     new_passenger->seat_number = seat_number; // Copy the seat number entered by the user to the new passenger's seat number
+
 
     // If statement is checking if the linked list is empty or not
     if (*head == NULL) {
@@ -201,7 +222,7 @@ void addPassenger (struct passenger** head, char name[], char departure[], char 
 
         last_node->next = new_passenger; // The next node of the last node will be the new passenger
     }
-    
+    printf("Passenger named %s has been added successfully.\n", name); // Printing the success message with the passenger's name    
 }
 
 // This function is for deleting a passenger from the linked list
