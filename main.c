@@ -13,16 +13,24 @@ struct passenger {
     struct passenger* next; // Pointer to the next passenger
 };
 
-void mainMenu();
-void addPassenger (struct passenger** head, char name[], char departure[], char arrival[], char date[], int seat_number);
-void deletePassenger (struct passenger** head, char name[]);
+// Function prototypes
+void mainMenu(); // Function for displaying the menu
+void addPassenger (struct passenger** head, char name[], char departure[], char arrival[], char date[], int seat_number); // Function for adding a passenger
+void deletePassenger (struct passenger** head, char name[]); // Function for deleting a passenger
+void searchPassenger (struct passenger** head, char name[]); // Function for searching a passenger
+void displayPassenger(struct passenger** head); // Function for displaying all passengers
 
 struct passenger* head = NULL; // Creating a head pointer
+
 int main() {
-    mainMenu();
+    mainMenu(); // Calling the mainMenu function
     return 0;
 }
 
+// Function for displaying the menu
+// This function will be called in the main function
+// This function will be called again if the user wants to continue to main menu
+// This function will be called again if the user enters an invalid choice
 void mainMenu(){
     char name[50], departure[50], arrival[50], date[10]; // Variables for passenger's info
     int seat_number; // Variable for passenger's seat number
@@ -35,7 +43,7 @@ void mainMenu(){
         printf("Press 5 for exit\n");
         printf("Enter your choice: "); // Getting the user's choice
         scanf("%d", &user_choice); // Storing the user's choice
-    while(1){
+
         // If else statements for user's choice
         // If user's choice is 1 this codeblock will be executed
         // addPassenger function will be called
@@ -47,6 +55,7 @@ void mainMenu(){
             scanf("%s", departure); // Storing the passenger's departure
             printf("Enter the arrival of the passenger: "); // Getting the passenger's arrival
             scanf("%s", arrival); // Storing the passenger's arrival
+            // ! Date . ile girilince problem oluyor
             printf("Enter the date of the passenger: "); // Getting the passenger's date
             scanf("%s", date); // Storing the passenger's date
             printf("Enter the seat number of the passenger: "); // Getting the passenger's seat number
@@ -59,17 +68,18 @@ void mainMenu(){
             // If user's choice is 1 this codeblock will be executed
             // mainMenu function will be called
             if (user_end_choice == 1){
-                mainMenu();
+                mainMenu(); // Calling the mainMenu function
             }
             // If user's choice is 0 this codeblock will be executed
             // The program will be terminated
             else if (user_end_choice == 0){
                 printf("Exiting...\n"); // Exit message will be printed
-                break; // Breaking the while loop
+                return; // Breaking the while loop
             }
             // If user's choice is not 0 or 1 this codeblock will be executed
             else {
                 printf("Invalid choice!\n"); // Printing the error message
+                mainMenu(); // Calling the mainMenu function
             }
             
         } 
@@ -86,46 +96,88 @@ void mainMenu(){
             // If user's choice is 1 this codeblock will be executed
             // mainMenu function will be called
             if (user_end_choice == 1){
-                mainMenu();
+                mainMenu(); // Calling the mainMenu function
             }
             // If user's choice is 0 this codeblock will be executed
             // The program will be terminated
             else if (user_end_choice == 0){
                 printf("Exiting...\n"); // Exit message will be printed
-                break; // Breaking the while loop
+                return; // Breaking the while loop
             }
             // If user's choice is not 0 or 1 this codeblock will be executed
             else {
                 printf("Invalid choice!\n"); // Printing the error message
-                mainMenu();
+                mainMenu(); // Calling the mainMenu function
             }
         } 
         // If user's choice is 3 this codeblock will be executed
         // searchPassenger function will be called
         else if (user_choice == 3) {
-            // searchPassenger
+            printf("Enter the name of the passenger: "); // Getting the passenger's name
+            scanf("%s", name); // Storing the passenger's name
+            searchPassenger(&head, name); // Calling the searchPassenger function
+            printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
+            scanf("%d", &user_end_choice); // Getting the user's choice
+            // If else statments for user's choice
+            // If user's choice is 1 this codeblock will be executed
+            // mainMenu function will be called
+            if (user_end_choice == 1){
+                mainMenu(); // Calling the mainMenu function
+            }
+            // If user's choice is 0 this codeblock will be executed
+            // The program will be terminated
+            else if (user_end_choice == 0){
+                printf("Exiting...\n"); // Exit message will be printed
+                return; // Breaking the while loop
+            }
+            // If user's choice is not 0 or 1 this codeblock will be executed
+            else {
+                printf("Invalid choice!\n"); // Printing the error message
+                mainMenu(); // Calling the mainMenu function
+            }            
         } 
         // If user's choice is 4 this codeblock will be executed
         // displayPassengers function will be called
         else if (user_choice == 4) {
-            // displayPassengers
+            displayPassenger(&head); // Calling the displayPassengers function
+            printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
+            scanf("%d", &user_end_choice); // Getting the user's choice
+            // If else statments for user's choice
+            // If user's choice is 1 this codeblock will be executed
+            // mainMenu function will be called
+            if (user_end_choice == 1){
+                mainMenu(); // Calling the mainMenu function
+            }
+            // If user's choice is 0 this codeblock will be executed
+            // The program will be terminated
+            else if (user_end_choice == 0){
+                printf("Exiting...\n"); // Exit message will be printed
+                return; // Breaking the while loop
+            }
+            // If user's choice is not 0 or 1 this codeblock will be executed
+            else {
+                printf("Invalid choice!\n"); // Printing the error message
+                mainMenu(); // Calling the mainMenu function
+            }
         } 
         // If user's choice is 5 this codeblock will be executed
         // The program will be terminated
         else if (user_choice == 5) {
             printf("Exiting...\n"); // Exit message will be printed
-            break; // Breaking the while loop
+            return; // Breaking the while loop
         } 
         
         else { // If user's choice is not between 1 and 5, then the program will print an error message
             printf("Invalid choice!\n"); // Printing the error message
-            mainMenu();
+            mainMenu(); // Calling the mainMenu function
         }
-    }
 
 
 }
 
+// ! Duplicate functionu eklenecek
+// This function is adding a new passenger to the linked list
+// This function is taking the head of the linked list, name, departure, arrival, date and seat number as parameters
 void addPassenger (struct passenger** head, char name[], char departure[], char arrival[], char date[], int seat_number) {
     struct passenger* new_passenger = (struct passenger*) malloc(sizeof(struct passenger)); // New passenger will be created
     strcpy(new_passenger->name, name); // Copy the name entered by the user to the new passenger's name
@@ -152,6 +204,10 @@ void addPassenger (struct passenger** head, char name[], char departure[], char 
     
 }
 
+// This function is for deleting a passenger from the linked list
+// This function takes two parameters
+// The first parameter is the head of the linked list
+// The second parameter is the name of the passenger that will be deleted
 void deletePassenger (struct passenger** head, char name[]) {
     struct passenger* current = *head; // Creating a new node for the current node
     struct passenger* prev = NULL; // Creating a new node for the previous node
@@ -175,5 +231,53 @@ void deletePassenger (struct passenger** head, char name[]) {
         }
         prev = current; // The previous node will be the current node
         current = current->next; // The current node will be the next node
+    }
+}
+ // Function for displaying the passengers
+ // This function takes the head node as a parameter
+ // The head node is the first node of the linked list
+void searchPassenger (struct passenger** head, char name[]) {
+    struct passenger* temp = *head; // Creating a new node for the temporary node
+
+    // The loop continues as long as the temp node is not NULL
+    // So the loop will continue until the end of the linked list
+    while (temp != NULL) {
+        // If statement is checking if the name entered by the user is equal to the name of the temp node
+        // The strcmp() compares two strings character by character. If the strings are equal, the function returns 0
+        if(strcmp(temp->name, name) == 0) {
+            printf("Name: %s\n", temp->name); // Printing the name of the passenger
+            printf("Departure: %s\n", temp->departure); // Printing the departure of the passenger
+            printf("Arrival: %s\n", temp->arrival); // Printing the arrival of the passenger
+            printf("Date: %s\n", temp->date); // Printing the date of the passenger
+            printf("Seat Number: %d\n", temp->seat_number); //
+            return;
+        }
+        temp = temp->next; // The temp node will be the next node
+    }
+    printf("Passenger named %s does not exist.\n", name); // If the passenger does not exist, then the program will print an error message
+}
+
+// Function for displaying the passengers
+// This function takes the head node as a parameter
+void displayPassenger(struct passenger** head) {
+    struct passenger* temp = *head; // Creating a new node for the temporary node
+    
+    // If statement is checking if the head node is NULL or not
+    // If head node is NULL, then the linked list is empty
+    if(head == NULL) {
+        printf("There is no passenger in the list.\n"); // Printing the error message
+        return; // Breaking the function
+    }
+    // If head node is not NULL, then the linked list is not empty
+    // The loop continues as long as the temp node is not NULL
+    // So the loop continues until the end of the linked list
+    while(temp != NULL) {
+        printf("Name: %s\n", temp->name); // Printing the name of the passenger
+        printf("Departure: %s\n", temp->departure); // Printing the departure of the passenger
+        printf("Arrival: %s\n", temp->arrival); // Printing the arrival of the passenger
+        printf("Date: %s\n", temp->date); // Printing the date of the passenger
+        printf("Seat Number: %d\n", temp->seat_number); // Printing the seat number of the passenger
+
+        temp = temp->next; // The temp node will be the next node
     }
 }
