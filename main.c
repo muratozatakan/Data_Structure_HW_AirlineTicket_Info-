@@ -49,15 +49,15 @@ void mainMenu(){
         // If user's choice is 1 this codeblock will be executed
         // addPassenger function will be called
         if (user_choice == 1) {
-            printf("Enter the name of the passenger: "); // Getting the passenger's name
-            // ! Name'i böyle alınca boşluk bırakınca problem oluyor başka bir şekilde al
+            printf("Enter the name of the passenger\n"); // Getting the passenger's name
+            printf("Enter the name with _ instead of space: "); // Informing the user about the name format
             scanf("%s", name); // Storing the passenger's name
             printf("Enter the departure of the passenger: "); // Getting the passenger's departure
             scanf("%s", departure); // Storing the passenger's departure
             printf("Enter the arrival of the passenger: "); // Getting the passenger's arrival
             scanf("%s", arrival); // Storing the passenger's arrival
-            // ! Date . ile girilince problem oluyor
-            printf("Enter the date of the passenger: "); // Getting the passenger's date
+            printf("Enter the date of the passenger\n"); // Getting the passenger's date
+            printf("Enter the without . like 14.05.2023 enter 14052023: "); // Informing the user about the date format
             scanf("%s", date); // Storing the passenger's date
             printf("Enter the seat number of the passenger: "); // Getting the passenger's seat number
             scanf("%d", &seat_number); // Storing the passenger's seat number
@@ -86,7 +86,9 @@ void mainMenu(){
         // If user's choice is 2 this codeblock will be executed
         // deletePassenger function will be called
         else if (user_choice == 2) {
-            printf("Enter the name of the passenger: "); // Getting the passenger's name
+            printf("Enter the name of the passenger\n"); // Getting the passenger's name
+            printf("If passenger's name entered with _ enter with _\n"); // Informing the user about the name format
+            printf("Like Name_Surname: "); // Informing the user about the name format
             scanf("%s", name); // Storing the passenger's name 
             deletePassenger(&head, name); // Calling the deletePassenger function
             printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
@@ -112,7 +114,9 @@ void mainMenu(){
         // If user's choice is 3 this codeblock will be executed
         // searchPassenger function will be called
         else if (user_choice == 3) {
-            printf("Enter the name of the passenger: "); // Getting the passenger's name
+            printf("Enter the name of the passenger\n"); // Getting the passenger's name
+            printf("If passenger's name entered with _ enter with _\n"); // Informing the user about the name format
+            printf("Like Name_Surname: "); // Informing the user about the name format
             scanf("%s", name); // Storing the passenger's name
             searchPassenger(&head, name); // Calling the searchPassenger function
             printf("Do you want to continue to main menu? (1 for yes, 0 for no)\n"); // Asking the user if they want to continue to main menu
